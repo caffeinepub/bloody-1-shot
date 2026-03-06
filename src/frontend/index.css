@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Mona Sans";
+  src: url("/assets/fonts/MonaSans.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/assets/fonts/BricolageGrotesque.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.375rem;
+
+    /* Desert war palette — dark mode by default */
+    --background: 0.12 0.015 55;
+    --foreground: 0.92 0.04 70;
+    --card: 0.16 0.02 55;
+    --card-foreground: 0.9 0.04 70;
+    --popover: 0.18 0.025 55;
+    --popover-foreground: 0.9 0.04 70;
+    --primary: 0.75 0.15 55;
+    --primary-foreground: 0.1 0.02 55;
+    --secondary: 0.22 0.025 55;
+    --secondary-foreground: 0.85 0.04 70;
+    --muted: 0.2 0.02 55;
+    --muted-foreground: 0.55 0.04 65;
+    --accent: 0.65 0.18 35;
+    --accent-foreground: 0.98 0 0;
+    --destructive: 0.6 0.22 22;
+    --destructive-foreground: 0.98 0 0;
+    --border: 0.28 0.025 55;
+    --input: 0.22 0.02 55;
+    --ring: 0.7 0.14 55;
+
+    /* Team colors */
+    --blue-team: 0.55 0.22 250;
+    --red-team: 0.58 0.22 22;
+
+    --chart-1: 0.646 0.222 41.116;
+    --chart-2: 0.6 0.118 184.704;
+    --chart-3: 0.398 0.07 227.392;
+    --chart-4: 0.828 0.189 84.429;
+    --chart-5: 0.769 0.188 70.08;
+    --sidebar: 0.14 0.02 55;
+    --sidebar-foreground: 0.9 0.04 70;
+    --sidebar-primary: 0.75 0.15 55;
+    --sidebar-primary-foreground: 0.1 0.02 55;
+    --sidebar-accent: 0.22 0.025 55;
+    --sidebar-accent-foreground: 0.85 0.04 70;
+    --sidebar-border: 0.28 0.025 55;
+    --sidebar-ring: 0.7 0.14 55;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Mona Sans", sans-serif;
+    overflow: hidden;
+  }
+}
+
+/* Game canvas cursor */
+.game-canvas-container {
+  cursor: none;
+}
+
+/* Grain overlay for atmosphere */
+.grain-overlay::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.4;
+  z-index: 9999;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: oklch(var(--background));
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(var(--border));
+  border-radius: 3px;
+}
+
+/* Kill feed animation */
+@keyframes killfeed-in {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.killfeed-entry {
+  animation: killfeed-in 0.3s ease-out forwards;
+}
+
+/* Pulse animation for coins */
+@keyframes coin-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Reload bar animation */
+@keyframes reload-fill {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+/* Blood splatter */
+@keyframes blood-fade {
+  0% { opacity: 1; transform: scale(0.5); }
+  100% { opacity: 0; transform: scale(2); }
+}
